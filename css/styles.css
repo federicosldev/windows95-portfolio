@@ -1,10 +1,20 @@
+@font-face {
+    font-family: 'Windows Regular';
+    src: url('/fonts/windows-regular.ttf') format('truetype');
+  }
+
 body {
     background-color: #6976DF;
     margin: 0;
     overflow: hidden;
-
+    font-family: 'Windows Regular';
+    height: 100vh;
 }
-
+.logo-fondo {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
 .start-bar {
     padding: 2px;
     box-shadow: inset 1px 0 #fff;
@@ -45,6 +55,7 @@ body {
     width: 45px;
     height: 14px;
 }
+/* END MENU */
 
 #contenido {
     padding: 10px;
@@ -65,6 +76,8 @@ body {
 }
 
 .windows-header {
+    display: flex;
+    justify-content: space-between;
     height: 25px;
     position: relative;
     text-align: left;
@@ -88,5 +101,115 @@ canvas {
   #clearButton {
     margin-left: 10px;
   }
+
+.settings {
+    width: 600px;
+    border: 1px solid white;
+}
+.settings h2 {
+    font-size: 2rem;
+    font-weight: 500;
+    color: black;
+}
+.settings p {
+    font-size: 1.3rem;
+    color: black;
+}
+.settings__colors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+}
+.color, 
+.colorAcc {
+    width: 44px;
+    height: 44px;
+    background-color: #000;
+}
+.color:hover,
+.colorAcc:hover {
+    -webkit-box-shadow: inset 0px 0px 0px 2px rgba(255,255,255,1);
+    -moz-box-shadow: inset 0px 0px 0px 2px rgba(255,255,255,1);
+    box-shadow: inset 0px 0px 0px 2px rgba(255,255,255,1);
+}
+.bg1 {
+    background-color: #FFCC43;
+}
+.bg2 {
+    background-color: #FE622A;
+}
+.bg3 {
+    background-color: #F3005E;
+}
+.bg4 {
+    background-color: #EC0089;
+}
+.bg4 {
+    background-color: #C70074;
+}
+.bg5 {
+    background-color: #A10084;
+}
+.bg6 {
+    background-color: #5D56CF;
+}
+.bg7 {
+    background-color: #6F69D0;
+}
+.bg8 {
+    background-color: #908CD3;
+}
+.bg9 {
+    background-color: #2188D3;
+}
+.bg10 {
+    background-color: #0078D1;
+}
+.bg11 {
+    background-color: #3096D8;
+}
+.bg12 {
+    background-color: #008386;
+}
+.bg13 {
+    background-color: #00B296;
+}
+.bg14 {
+    background-color: #00AAA9;
+}
+.bg15 {
+    background-color: #16D972;
+}
+.bg15 {
+    background-color: #006665;
+}
+.bg16 {
+    background-color: #446860;
+}
+.bg17 {
+    background-color: #5F4038;
+}
+.bg18 {
+    background-color: #BA7B2C;
+}
+.bg19 {
+    background-color: #C89C73;
+}
+.bg20 {
+    background-color: #000;
+}
+.bg21 {
+    background-color: #141414;
+}
+.bg22 {
+    background-color: #8E8E93;
+}
+.bg23 {
+    background-color: #A4A4A4;
+}
+.bg24 {
+    background-color: #D2D2D2;
+}
+
 
   

@@ -106,3 +106,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const downloadButton = document.getElementById('downloadButton');
   downloadButton.addEventListener('click', downloadCanvas);
 });
+
+// SETTIINGS
+const colorsElements = document.querySelectorAll('.color');
+const windowsHeader = document.getElementById('windowHeaderDragable');
+
+const changeBgColor = event => {
+  const color = window
+    .getComputedStyle(event.target)
+    .getPropertyValue('background-color');
+  document.body.style.backgroundColor = color;
+};
+
+const changeBgAccColor = event => {
+  const color = window
+    .getComputedStyle(event.target)
+    .getPropertyValue('background-color');
+  windowsHeader.style.backgroundColor = color;
+};
+
+colorsElements.forEach(picker => {
+  picker.addEventListener('click', changeBgColor);
+});
+
+colorsAccentElements.forEach(picker => {
+  picker.addEventListener('click', changeBgAccColor);
+});
