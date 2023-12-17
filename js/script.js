@@ -8,16 +8,12 @@ function makeDraggable(windowElement, headerElement) {
   headerElement.onmousedown = function (e) {
     e.preventDefault();
 
-    // Obtener el valor máximo actual de Z-index
     var maxZIndex = Math.max(
       ...Array.from(document.querySelectorAll('.ventana')).map(
         ventana => parseFloat(window.getComputedStyle(ventana).zIndex) || 0
       )
     );
-
-    // Establecer el Z-index de la ventana seleccionada por encima de las demás
     windowElement.style.zIndex = maxZIndex + 1;
-
     pos3 = e.clientX;
     pos4 = e.clientY;
     document.onmouseup = function () {
@@ -31,18 +27,15 @@ function makeDraggable(windowElement, headerElement) {
       pos3 = e.clientX;
       pos4 = e.clientY;
 
-      // Calcular las nuevas posiciones
       var newTop = windowElement.offsetTop - pos2;
       var newLeft = windowElement.offsetLeft - pos1;
 
-      // Verificar que la ventana no se salga de la pantalla
       var maxX = window.innerWidth - windowElement.offsetWidth;
       var maxY = window.innerHeight - windowElement.offsetHeight;
 
       newTop = Math.max(0, Math.min(newTop, maxY));
       newLeft = Math.max(0, Math.min(newLeft, maxX));
 
-      // Aplicar las nuevas posiciones
       windowElement.style.top = newTop + 'px';
       windowElement.style.left = newLeft + 'px';
     };
@@ -79,10 +72,20 @@ document.addEventListener('DOMContentLoaded', () => {
   function draw(e) {
     if (!painting) return;
 
+    let clientX, clientY;
+
+    if (e.touches) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    } else {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    }
+
     const rect = canvas.getBoundingClientRect();
 
-    const mouseX = e.clientX - rect.left - window.scrollX;
-    const mouseY = e.clientY - rect.top - window.scrollY;
+    const mouseX = clientX - rect.left - window.scrollX;
+    const mouseY = clientY - rect.top - window.scrollY;
 
     ctx.lineWidth = 5;
     ctx.lineCap = 'round';
@@ -112,6 +115,11 @@ document.addEventListener('DOMContentLoaded', () => {
   canvas.addEventListener('mousedown', startPosition);
   canvas.addEventListener('mouseup', endPosition);
   canvas.addEventListener('mousemove', draw);
+
+  canvas.addEventListener('touchstart', startPosition);
+  canvas.addEventListener('touchend', endPosition);
+  canvas.addEventListener('touchmove', draw);
+
   colorPicker.addEventListener('input', changeColor);
   clearButton.addEventListener('click', clearCanvas);
   downloadButton.addEventListener('click', downloadCanvas);
@@ -127,21 +135,9 @@ const changeBgColor = event => {
     .getPropertyValue('background-color');
   document.body.style.backgroundColor = color;
 };
-
-// const changeBgAccColor = event => {
-//   const color = window
-//     .getComputedStyle(event.target)
-//     .getPropertyValue('background-color');
-//   windowsHeader.style.backgroundColor = color;
-// };
-
 colorsElements.forEach(picker => {
   picker.addEventListener('click', changeBgColor);
 });
-
-// colorsAccentElements.forEach(picker => {
-//   picker.addEventListener('click', changeBgAccColor);
-// });
 
 // HEADER CLOSE BUTTON
 const btnCloseWindowElements = document.querySelectorAll('.closeBtn');
@@ -165,6 +161,8 @@ const btnShowDocuments = document.getElementById('displayDocuments');
 const documentsWindow = document.getElementById('ventana4');
 const btnShowTasks = document.getElementById('displayTask');
 const tasksWindow = document.getElementById('ventana5');
+const myComputerWindow = document.getElementById('ventana6');
+const btnShowMyComputer = document.getElementById('displayMyComputer');
 
 toggleWindow = windowElement => {
   if (windowElement.classList.contains('offWindow')) {
@@ -178,6 +176,9 @@ btnShowPaint.addEventListener('click', () => toggleWindow(paintWindow));
 btnShowSettings.addEventListener('click', () => toggleWindow(settingsWindow));
 btnShowDocuments.addEventListener('click', () => toggleWindow(documentsWindow));
 btnShowTasks.addEventListener('click', () => toggleWindow(tasksWindow));
+btnShowMyComputer.addEventListener('click', () =>
+  toggleWindow(myComputerWindow)
+);
 
 // TASK WINDOW
 const taksContainerElement = document.getElementById('taksContainer');
@@ -285,3 +286,17 @@ buttonFilterCompleteElement.addEventListener('click', filterCompletTask);
 buttonFilterActiveTaskElement.addEventListener('click', filterIncompleteTask);
 buttonFilterAllTaskElement.addEventListener('click', showAllTasks);
 buttonDeleteTaskElement.addEventListener('click', deleteCompleteTask);
+
+// CLOCK
+const hoursElement = document.getElementById('hours');
+const minutesElement = document.getElementById('minutes');
+changeHour = () => {
+  const date = new Date();
+  const hour = date.getHours();
+  const minutes = date.getMinutes();
+  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+  hoursElement.textContent = hour;
+  minutesElement.textContent = formattedMinutes;
+};
+changeHour();
+setInterval(changeHour, 1000);
