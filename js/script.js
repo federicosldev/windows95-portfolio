@@ -1,5 +1,5 @@
 // VENTANAS DRAGGABLES
-function makeDraggable(windowElement, headerElement) {
+makeDraggable = (windowElement, headerElement) => {
   var pos1 = 0,
     pos2 = 0,
     pos3 = 0,
@@ -40,7 +40,7 @@ function makeDraggable(windowElement, headerElement) {
       windowElement.style.left = newLeft + 'px';
     };
   };
-}
+};
 
 const ventanas = document.querySelectorAll('.ventana');
 ventanas.forEach(ventana => {
@@ -59,17 +59,17 @@ document.addEventListener('DOMContentLoaded', () => {
   let painting = false;
   let color = '#000000';
 
-  function startPosition(e) {
+  startPosition = e => {
     painting = true;
     draw(e);
-  }
+  };
 
-  function endPosition() {
+  endPosition = () => {
     painting = false;
     ctx.beginPath();
-  }
+  };
 
-  function draw(e) {
+  draw = e => {
     if (!painting) return;
 
     let clientX, clientY;
@@ -95,22 +95,22 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.stroke();
     ctx.beginPath();
     ctx.moveTo(mouseX, mouseY);
-  }
+  };
 
-  function changeColor(e) {
+  changeColor = e => {
     color = e.target.value;
-  }
+  };
 
-  function clearCanvas() {
+  clearCanvas = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-  }
+  };
 
-  function downloadCanvas() {
+  downloadCanvas = () => {
     const link = document.createElement('a');
     link.href = canvas.toDataURL('image/png');
     link.download = 'drawing.png';
     link.click();
-  }
+  };
 
   canvas.addEventListener('mousedown', startPosition);
   canvas.addEventListener('mouseup', endPosition);
